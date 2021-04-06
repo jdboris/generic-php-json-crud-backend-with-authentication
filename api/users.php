@@ -1,7 +1,11 @@
 <?php
-header( "Access-Control-Allow-Origin: *" );
-header( "Access-Control-Allow-Methods: POST,GET,PUT,DELETE" );
+header( "Access-Control-Allow-Origin: http://localhost:5501" );
+header( "Access-Control-Allow-Credentials: true" );
+header( "Access-Control-Allow-Methods: GET, POST, DELETE, PUT" );
 header( "Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept" );
+
+session_set_cookie_params( ["samesite" => "None", "secure" => "true"] );
+session_start( );
 
 $file = "../data/users.json";
 

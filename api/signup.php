@@ -24,22 +24,12 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
     }
 
     // Input validation
-    if( empty( $user->username ) ){
-        array_push( $response->errors, "Please provide a username." );
-
-    } else {
-
-        for( $i = 0; $i < count( $users ); $i++ ){
-            if( $user->username == $users[$i]->username ){
-                array_push( $response->errors, "Username is already in use." );
-                break;
-            }
-        }
-    }
 
     if( empty( $user->email ) ){
         array_push( $response->errors, "Please provide an email address." );
 
+    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        array_push( $response->errors, "Invalid email address." );
     } else {
 
         for( $i = 0; $i < count( $users ); $i++ ){
@@ -83,6 +73,8 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
         unset( $user->passwordHash );
 
         $response->user = $user;
+
+        // Login
         $_SESSION["id"] = $user->id;
     }
 
